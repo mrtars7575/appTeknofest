@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "568419511663",
+    "project_id": "eyefam-a2786",
+    "storage_bucket": "eyefam-a2786.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568419511663:android:ce7794a045ed3519e14c9a",
+        "android_client_info": {
+          "package_name": "com.example.appteknofest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568419511663-ml9nnki9fha5m63fer392jfith11o1fc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX7z5gfgLraK6H9JQEYGLIU9stBum0TF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568419511663-ml9nnki9fha5m63fer392jfith11o1fc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

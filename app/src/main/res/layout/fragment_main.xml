@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainFragment">
+
+    <ImageView
+        android:id="@+id/cameraIv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="56dp"
+        app:layout_constraintBottom_toTopOf="@+id/communicationIv"
+        app:layout_constraintEnd_toStartOf="@+id/diagnosticIv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/cameraicon" />
+
+    <ImageView
+        android:id="@+id/diagnosticIv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="82dp"
+        app:layout_constraintBottom_toTopOf="@+id/deviceSettingsIv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cameraIv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/diagnostic_round" />
+
+    <ImageView
+        android:id="@+id/communicationIv"
+        android:layout_width="99dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginBottom="105dp"
+        app:layout_constraintBottom_toTopOf="@+id/appSettingsIv"
+        app:layout_constraintEnd_toStartOf="@+id/deviceSettingsIv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cameraIv"
+        app:srcCompat="@mipmap/communication" />
+
+    <ImageView
+        android:id="@+id/deviceSettingsIv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="105dp"
+        app:layout_constraintBottom_toTopOf="@+id/othersIv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/communicationIv"
+        app:layout_constraintTop_toBottomOf="@+id/diagnosticIv"
+        app:srcCompat="@mipmap/appsetings" />
+
+    <ImageView
+        android:id="@+id/appSettingsIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="101dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/othersIv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/communicationIv"
+        app:srcCompat="@mipmap/devicesetting_foreground"
+        tools:src="@mipmap/devicesetting_foreground" />
+
+    <ImageView
+        android:id="@+id/othersIv"
+        android:layout_width="89dp"
+        android:layout_height="84dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="111dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/appSettingsIv"
+        app:layout_constraintTop_toBottomOf="@+id/deviceSettingsIv"
+        app:srcCompat="@mipmap/other"
+        tools:src="@drawable/ic_baseline_arrow_back_24" />
+</androidx.constraintlayout.widget.ConstraintLayout>

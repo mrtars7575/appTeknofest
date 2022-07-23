@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_graph"
+    app:startDestination="@id/introductionragment">
+
+    <fragment
+        android:id="@+id/introductionragment"
+        android:name="com.example.appteknofest.Introductionragment"
+        android:label="fragment_introductionragment"
+        tools:layout="@layout/fragment_introductionragment" >
+        <action
+            android:id="@+id/action_introductionragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_introductionragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.example.appteknofest.LogInFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_logInFragment_to_introductionragment"
+            app:destination="@id/introductionragment" />
+        <action
+            android:id="@+id/action_logInFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_logInFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.appteknofest.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_introductionragment"
+            app:destination="@id/introductionragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.appteknofest.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_diagnosticFragment"
+            app:destination="@id/diagnosticFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_deviceSettingsFragment"
+            app:destination="@id/deviceSettingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_communicationFragment"
+            app:destination="@id/communicationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_appSettingsFragment"
+            app:destination="@id/appSettingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_othersFragment"
+            app:destination="@id/othersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/othersFragment"
+        android:name="com.example.appteknofest.othersFragment"
+        android:label="fragment_others"
+        tools:layout="@layout/fragment_others" />
+    <fragment
+        android:id="@+id/diagnosticFragment"
+        android:name="com.example.appteknofest.diagnosticFragment"
+        android:label="fragment_diagnostic"
+        tools:layout="@layout/fragment_diagnostic" />
+    <fragment
+        android:id="@+id/deviceSettingsFragment"
+        android:name="com.example.appteknofest.deviceSettingsFragment"
+        android:label="fragment_device_settings"
+        tools:layout="@layout/fragment_device_settings" />
+    <fragment
+        android:id="@+id/communicationFragment"
+        android:name="com.example.appteknofest.communicationFragment"
+        android:label="fragment_communication"
+        tools:layout="@layout/fragment_communication" />
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.example.appteknofest.cameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" />
+    <fragment
+        android:id="@+id/appSettingsFragment"
+        android:name="com.example.appteknofest.appSettingsFragment"
+        android:label="fragment_app_settings"
+        tools:layout="@layout/fragment_app_settings" />
+</navigation>
