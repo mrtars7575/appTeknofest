@@ -44,9 +44,11 @@ public class demonstrateImageActivity extends AppCompatActivity {
     ImageView demonstrateImageIv;
     Button pickImageBtn;
 
-    ImageDatabase db;
+    /* ImageDatabase db;
     ImageDao imageDao;
     Image img;
+    */
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private static final int CAMERA_PERMISSION_CODE = 100;
     /*private CompositeDisposable compositeDisposable = new CompositeDisposable();*/
@@ -65,15 +67,13 @@ public class demonstrateImageActivity extends AppCompatActivity {
         demonstrateImageIv = findViewById(R.id.demonstrateImageIv);
         pickImageBtn = findViewById(R.id.pickPhotoBtn);
 
-        db = Room.databaseBuilder(getApplicationContext(),
+       /* db = Room.databaseBuilder(getApplicationContext(),
                 ImageDatabase.class,"imageDatabase")
-                .allowMainThreadQueries()
+                //.allowMainThreadQueries()
                 .build();
 
         imageDao = db.imageDao();
-
-
-
+*/
 
         pickImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,21 +182,26 @@ public class demonstrateImageActivity extends AppCompatActivity {
 
 
 
-
+            /*
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.JPEG,70,stream);
             byte[] bArray = stream.toByteArray();
-            img = new Image(bArray);
+            img = new Image(bArray);*/
 
-          /*  compositeDisposable.add((Disposable) imageDao.insert(img)
+
+
+
+
+
+            /*  compositeDisposable.add((Disposable) imageDao.insert(img)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()));*/
 
 
-            imageDao.insert(img);
+            //imageDao.insert(img);
 
-            System.out.println(imageDao.getImage(1).bArr);
-            System.out.println(imageDao.getAll());
+            /*System.out.println(imageDao.getImage(1).bArr);
+            System.out.println(imageDao.getAll());*/
             demonstrateImageIv.setImageBitmap(photo);
         }
     }

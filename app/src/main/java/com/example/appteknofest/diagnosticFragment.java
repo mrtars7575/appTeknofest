@@ -31,6 +31,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,12 +65,15 @@ import java.util.List;
 
 public class diagnosticFragment extends Fragment {
 
+    private static final int CAMERA_REQUEST_CODE = 102;
+
     private ImageView textRecognitionIv;
     private ImageView labelDetectionIv;
     private ImageView detectLogoIv;
     private ImageView detectLandmarkIv;
     private ImageView imagePropertiesIv;
     private ImageView detectExplicitContentIv;
+//    private Button btn;
 
     private ActivityResultLauncher<String> permissionLauncher;
 
@@ -112,6 +116,17 @@ public class diagnosticFragment extends Fragment {
 
         tv = view.findViewById(R.id.textView);
 
+
+//        btn = view.findViewById(R.id.button);
+
+
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                MainActivity.calistir();
+//            }
+//        });
+
         registerLauncher();
 
         if (ContextCompat.checkSelfPermission(getContext(),Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -125,12 +140,7 @@ public class diagnosticFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                feature = new Feature();
-                api = visionAPI[5];
-                feature.setType(api);
-                feature.setMaxResults(10);
 
-                callCloudVision(bitmap,feature);
 
             }
         });
@@ -138,12 +148,7 @@ public class diagnosticFragment extends Fragment {
         labelDetectionIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                feature = new Feature();
-                api = visionAPI[4];
-                feature.setType(api);
-                feature.setMaxResults(10);
 
-                callCloudVision(bitmap,feature);
 
             }
         });
@@ -151,48 +156,33 @@ public class diagnosticFragment extends Fragment {
         detectLogoIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                feature = new Feature();
-                api = visionAPI[1];
-                feature.setType(api);
-                feature.setMaxResults(10);
 
-                callCloudVision(bitmap,feature);
+
             }
         });
 
         detectLandmarkIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                feature = new Feature();
-                api = visionAPI[0];
-                feature.setType(api);
-                feature.setMaxResults(10);
 
-                callCloudVision(bitmap,feature);
             }
         });
 
         imagePropertiesIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                feature = new Feature();
-                api = visionAPI[3];
-                feature.setType(api);
-                feature.setMaxResults(10);
 
-                callCloudVision(bitmap,feature);
+
+
             }
         });
 
         detectExplicitContentIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                feature = new Feature();
-                api = visionAPI[2];
-                feature.setType(api);
-                feature.setMaxResults(10);
 
-                callCloudVision(bitmap,feature);
+
+
             }
         });
 
@@ -235,142 +225,11 @@ public class diagnosticFragment extends Fragment {
 
 
 
-    @SuppressLint("StaticFieldLeak")
-    private void callCloudVision(final Bitmap bitmap,final Feature feature) {
-        final List<Feature> featureList = new ArrayList<>();
-        featureList.add(feature);
-
-        final List<AnnotateImageRequest> annotateImageRequests = new ArrayList<>();
-
-        AnnotateImageRequest annotateImageReq = new AnnotateImageRequest();
-        annotateImageReq.setFeatures(featureList);
-        annotateImageReq.setImage(getImageEncodeImage(bitmap));
-        annotateImageRequests.add(annotateImageReq);
 
 
-        new AsyncTask<Object, Void, String>() {
-            @Override
-            protected String doInBackground(Object... params) {
-                try {
-
-                    HttpTransport httpTransport = AndroidHttp.newCompatibleTransport();
-                    JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
-
-                    VisionRequestInitializer requestInitializer = new VisionRequestInitializer(CLOUD_VISION_API_KEY);
-
-                    Vision.Builder builder = new Vision.Builder(httpTransport, jsonFactory, null);
-                    builder.setVisionRequestInitializer(requestInitializer);
-
-                    Vision vision = builder.build();
-
-                    BatchAnnotateImagesRequest batchAnnotateImagesRequest = new BatchAnnotateImagesRequest();
-                    batchAnnotateImagesRequest.setRequests(annotateImageRequests);
-
-                    Vision.Images.Annotate annotateRequest = vision.images().annotate(batchAnnotateImagesRequest);
-                    annotateRequest.setDisableGZipContent(true);
-                    BatchAnnotateImagesResponse response = annotateRequest.execute();
-                    return convertResponseToString(response);
-                } catch (GoogleJsonResponseException e) {
-                    Log.d(TAG, "failed to make API request because " + e.getContent());
-                } catch (IOException e) {
-                    Log.d(TAG, "failed to make API request because of other IOException " + e.getMessage());
-                }
-                return "Cloud Vision API request failed. Check logs for details.";
-            }
-
-            protected void onPostExecute(String result) {
-                tv.setText(result);
-
-                //System.out.println("Message : "+ result);
-            }
-        }.execute();
-    }
-
-    private String convertResponseToString(@NonNull BatchAnnotateImagesResponse response) {
-
-        AnnotateImageResponse imageResponses = response.getResponses().get(0);
-
-        List<EntityAnnotation> entityAnnotations;
-        List<EntityAnnotation> entityAnnotations1;
-
-        String message = "";
-
-        if (api.equals("TEXT_DETECTION")){
-            entityAnnotations = imageResponses.getTextAnnotations();
-            message = formatAnnotation(entityAnnotations);
-        }else if(api.equals("LABEL_DETECTION")){
-            entityAnnotations1 = imageResponses.getLabelAnnotations();
-            message = formatAnnotations(entityAnnotations1);
-        }else if(api.equals("LOGO_DETECTION")){
-            entityAnnotations = imageResponses.getLogoAnnotations();
-            message = formatAnnotation(entityAnnotations);
-        }else if (api.equals("LANDMARK_DETECTION")){
-            entityAnnotations = imageResponses.getLandmarkAnnotations();
-            message = formatAnnotation(entityAnnotations);
-        }else if (api.equals("IMAGE_PROPERTIES")){
-            ImageProperties imageProperties = imageResponses.getImagePropertiesAnnotation();
-            message = getImageProperty(imageProperties);
-        }else if (api.equals("SAFE_SEARCH")){
-            SafeSearchAnnotation annotation = imageResponses.getSafeSearchAnnotation();
-            message = getImageAnnotation(annotation);
-        }
-
-        return  message;
-
-    }
-
-    private String getImageAnnotation(SafeSearchAnnotation annotation) {
-        return String.format("adult: %s\nmedical: %s\nspoofed: %s\nviolence: %s\n",
-                annotation.getAdult(),
-                annotation.getMedical(),
-                annotation.getSpoof(),
-                annotation.getViolence());
-    }
-
-    private String getImageProperty(ImageProperties imageProperties) {
-        String message = "";
-        DominantColorsAnnotation colors = imageProperties.getDominantColors();
-        for (ColorInfo color : colors.getColors()) {
-            message = message + "" + color.getPixelFraction() + " - " + color.getColor().getRed() + " - " + color.getColor().getGreen() + " - " + color.getColor().getBlue();
-            message = message + "\n";
-        }
-        return message;
-    }
-
-    private String formatAnnotations(List<EntityAnnotation> entityAnnotations1) {
-        String message = "";
-
-        if (entityAnnotations1 != null) {
-            for (EntityAnnotation entity : entityAnnotations1) {
-                message =  message +" "+ entity.getDescription() + " " + entity.getScore(); ;
-
-            }
-        } else {
-            message = "Nothing Found";
-        }
-
-        System.out.println("Message : "+ message);
-        return message;
-    }
-
-    private String formatAnnotation(List<EntityAnnotation> entityAnnotations) {
-        String message = "";
-
-        if (entityAnnotations != null) {
-            for (EntityAnnotation entity : entityAnnotations) {
-                message =  message +" "+ entity.getDescription();
-
-            }
-        } else {
-            message = "Nothing Found";
-        }
-
-        System.out.println("Message : "+ message);
-        return message;
-    }
 
     @NonNull
-    private Image getImageEncodeImage(Bitmap bitmap) {
+    private Image getImageEncodeImage(@NonNull Bitmap bitmap) {
         Image base64EncodedImage = new Image();
         // Convert the bitmap to a JPEG
         // Just in case it's a format that Android understands but Cloud Vision

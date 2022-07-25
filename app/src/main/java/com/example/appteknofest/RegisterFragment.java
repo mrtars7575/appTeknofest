@@ -83,8 +83,6 @@ public class RegisterFragment extends Fragment {
 
     public void goToIntroductionFragment(View view){
 
-
-
         Navigation.findNavController(view)
                 .navigate(R.id.action_registerFragment_to_introductionragment);
     }
